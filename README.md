@@ -15,9 +15,21 @@ Intel(R) Core(TM) i5-6600 с частотой 3,30 ГГц. Список расп
 
 [Пример использования интерфейса](https://github.com/CatDevelop/Teaching-RSL-Stand/blob/pin-code/frontend/src/features/training/components/RecognitionBlock/RecognitionBlock.tsx)
 
-## Инструкция запуска
+## Инструкция ручного запуска
 ```bash
 pip install -r requirements.txt
 python SLT_API.py
 ```
 Поднимется сервер по адресу `localhost:5000`, к которому и необходимо подключаться по WebSocket.
+
+## Как запустить с помощью docker
+
+1. Сбилдить образ и запустить
+
+```bash
+docker build -t rsl-img . && docker run -p 5000:5000 --name rsl-api --gpus device=01:00.0 nvidia/cuda rsl-img
+```
+3. Удалить контейнер и образ:
+```bash
+docker stop rsl-api && docker rm rsl-api && docker rmi rsl-img
+```
