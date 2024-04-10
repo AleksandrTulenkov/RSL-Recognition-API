@@ -21,3 +21,23 @@ pip install -r requirements.txt
 python SLT_API.py
 ```
 Поднимется сервер по адресу `localhost:5000`, к которому и необходимо подключаться по WebSocket.
+
+## Deploy
+Конфигурация .service файла для развертывания на сервере
+```
+/etc/systemd/system/rsl-api.service
+
+[Unit]
+Description=rsl-api
+After=multi-user.target
+
+[Service]
+User=akhidov
+Type=simple
+Restart=always
+WorkingDirectory=/home/akhidov/RSL-Recognition-API
+ExecStart=python3 /home/akhidov/RSL-Recognition-API/SLT_API.py
+
+[Install]
+WantedBy=multi-user.target
+```
