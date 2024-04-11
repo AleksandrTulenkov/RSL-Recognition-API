@@ -27,7 +27,7 @@ python SLT_API.py
 1. Сбилдить образ и запустить
 
 ```bash
-docker build -t rsl-img . && docker run -p 5000:5000 --name rsl-api --gpus device=01:00.0 nvidia/cuda rsl-img
+docker build -t rsl-img . && docker run -d -p 5000:5000 --name rsl-api rsl-img
 ```
 3. Удалить контейнер и образ:
 ```bash
