@@ -33,3 +33,23 @@ docker build -t rsl-img . && docker run -d -p 5000:5000 --name rsl-api rsl-img
 ```bash
 docker stop rsl-api && docker rm rsl-api && docker rmi rsl-img
 ```
+
+## Deploy с помощью .service
+Конфигурация .service файла для развертывания на сервере
+```
+/etc/systemd/system/rsl-api.service
+
+[Unit]
+Description=rsl-api
+After=multi-user.target
+
+[Service]
+User=akhidov
+Type=simple
+Restart=always
+WorkingDirectory=/home/akhidov/RSL-Recognition-API
+ExecStart=python3 /home/akhidov/RSL-Recognition-API/SLT_API.py
+
+[Install]
+WantedBy=multi-user.target
+```

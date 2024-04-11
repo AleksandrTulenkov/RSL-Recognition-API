@@ -92,7 +92,7 @@ def connect(sid, environ):
 
     if sid not in users.keys():
         users[sid] = []
-        users[sid].append(deque(maxlen=32)) # Frame queue
+        users[sid].append(deque(maxlen=32))  # Frame queue
         users[sid].append(Thread(target=inference, args=(model, users[sid][0], sid), daemon=True))
         users[sid].append(False)
         users[sid][1].start()
