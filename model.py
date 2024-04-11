@@ -79,7 +79,7 @@ class Predictor:
         Returns:
             None
         """
-        session = rt.InferenceSession(path_to_model, providers=[self.provider])
+        session = rt.InferenceSession(path_to_model, providers=['CPUExecutionProvider'])
         self.input_name = session.get_inputs()[0].name
         self.output_name = session.get_outputs()[0].name
 
