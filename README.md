@@ -27,7 +27,7 @@ python SLT_API.py
 1. Сбилдить образ и запустить
 
 ```bash
-docker build -t rsl-img . && docker run -d -p 5000:5000 --name rsl-api rsl-img
+docker build -t rsl-img . && docker run -d -p 5000:5000 --name rsl-api --restart=always  rsl-img
 ```
 3. Удалить контейнер и образ:
 ```bash
