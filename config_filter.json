@@ -2,6 +2,6 @@
     "path_to_model": "S3D.onnx",
     "threshold": 0.7,
     "topk": 5,
-    "path_to_class_list": "RSL_class_list.txt",
+    "path_to_class_list": "RSL_class_list_filter.txt",
     "provider": "OpenVINOExecutionProvider"
 }

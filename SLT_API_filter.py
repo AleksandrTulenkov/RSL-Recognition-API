@@ -72,9 +72,7 @@ def inference(model, frame_queue, sid):
         if results:
             print(datetime.datetime.now(), results)
             if results['labels'][0] != 'нет жеста':
-                results['labels'] = {x: results['labels'][x] for x in results['labels'] if results['labels'][x] in filter_list}
-                if len(results['labels']) > 0:
-                    sio.emit("send_not_normalize_text", json.dumps(results['labels']), room=sid)
+                sio.emit("send_not_normalize_text", json.dumps(results['labels']), room=sid)
 
 def main():
     global model
@@ -126,8 +124,10 @@ def readb64(base64_string):
 # Socket.IO event handler: Received video frame data from the client
 @sio.on("data")
 def data(sid, data):
+    print("Data received frames_num:", len(data))
     global users
     images_data = [readb64(i) for i in data]
+    print("Data unpacked", len(data))
     users[sid][0].extend(images_data)
 
 
