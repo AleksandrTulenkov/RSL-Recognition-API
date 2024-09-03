@@ -128,7 +128,7 @@ def readb64(base64_string):
 def data(sid, data):
     global users
     images_data = [readb64(i) for i in data]
-    users[sid][0] + images_data
+    users[sid][0].extend(images_data)
 
 
 def create_server():
