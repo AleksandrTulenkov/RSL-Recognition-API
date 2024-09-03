@@ -17,3 +17,4 @@ flask~=3.0.0
 python-socketio==5.9.0
 onnxruntime~=1.15.1
 numpy~=1.26.2
+pillow~=10.4.0
