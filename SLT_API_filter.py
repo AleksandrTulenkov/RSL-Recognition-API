@@ -12,6 +12,8 @@ import numpy as np
 import socketio
 from flask import Flask
 from model import Predictor
+import io
+from PIL import Image
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
@@ -112,18 +114,21 @@ def disconnect(sid):
     users[sid][2] = True
 
 
+def readb64(base64_string):
+    idx = base64_string.find('base64,')
+    base64_string  = base64_string[idx+7:]
+    sbuf = io.BytesIO()
+    sbuf.write(base64.b64decode(base64_string, ' /'))
+    pimg = Image.open(sbuf)
+    return np.array(pimg)
+
+
 # Socket.IO event handler: Received video frame data from the client
 @sio.on("data")
 def data(sid, data):
-    global users, ROTATE_180_FLAG
-    image_data = data.split(",")[1]
-    image_bytes = base64.b64decode(image_data)
-    frame = np.frombuffer(image_bytes, dtype=np.uint8)
-    image = cv2.imdecode(frame, -1)
-    # if camera rotated to 180 degrees
-    if ROTATE_180_FLAG:
-        image = cv2.rotate(image, cv2.ROTATE_180)
-    users[sid][0].append(np.array(image[:, :, ::-1]))
+    global users
+    images_data = [readb64(i) for i in data]
+    users[sid][0] + images_data
 
 
 def create_server():
