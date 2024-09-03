@@ -124,10 +124,8 @@ def readb64(base64_string):
 # Socket.IO event handler: Received video frame data from the client
 @sio.on("data")
 def data(sid, data):
-    print("Data received frames_num:", len(data))
     global users
     images_data = [readb64(i) for i in data]
-    print("Data unpacked", len(data))
     users[sid][0].extend(images_data)
 
 
