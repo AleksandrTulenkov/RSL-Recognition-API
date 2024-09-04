@@ -70,7 +70,7 @@ def inference(model, frame_queue, sid):
 
         results = model.predict(cur_windows)
         if results:
-            print(datetime.datetime.now(), results)
+            # print(datetime.datetime.now(), results)
             # Check if the 0th key is 'нет жеста'
             if results['labels'][0] == 'нет жеста':
                 # Check 1st and 2nd keys and replace 0th if they are not 'нет жеста'
@@ -80,6 +80,7 @@ def inference(model, frame_queue, sid):
                     results['labels'][0] = results['labels'][2]
             if results['labels'][0] != 'нет жеста':
                 sio.emit("send_not_normalize_text", json.dumps(results['labels']), room=sid)
+            print(datetime.datetime.now(), results)
 
 def main():
     global model
