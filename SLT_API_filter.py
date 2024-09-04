@@ -81,6 +81,8 @@ def inference(model, frame_queue, sid):
             if results['labels'][0] != 'нет жеста':
                 sio.emit("send_not_normalize_text", json.dumps(results['labels']), room=sid)
             print(datetime.datetime.now(), results)
+        else:
+            print(datetime.datetime.now(), "No results")
 
 def main():
     global model
