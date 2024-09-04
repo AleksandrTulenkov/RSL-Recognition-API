@@ -55,7 +55,7 @@ def init_model(config_path):
         raise ValueError(f"Error creating Predictor configuration: {e}")
 
 
-def inference(model, frame_queue, sid):
+def inference(model, frame_queue, sid, stride=0.5):
     global users
 
     while True:
@@ -65,6 +65,10 @@ def inference(model, frame_queue, sid):
 
         if len(frame_queue) >= SAMPLE_LENGTH:
             cur_windows = list(frame_queue)
+            # Remove the first half of the frames
+            for _ in range(int(SAMPLE_LENGTH * stride)):
+                frame_queue.popleft()
+
         else:
             continue
 
